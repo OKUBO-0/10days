@@ -31,10 +31,11 @@ void GameScene::Initialize() {
 
 	//サウンドデータ読み込み
 	BGMHandle_ = audio_->LoadWave("sound/BGM.mp3");
+	BGMAudio_ = audio_->LoadWave("sound/BGM.mp3");
 	JumpSEHandle_ = audio_->LoadWave("sound/jump.mp3");
 	InvertSEHandle_ = audio_->LoadWave("sound/invert.mp3");
 
-	audio_->PlayWave(BGMHandle_);
+	//audio_->playAudio(BGMAudio_, BGMHandle_, true, 1.0f);
 
 	// テクスチャ読み込み
 	texturHandle_ = TextureManager::Load("pralyer.png");
@@ -100,6 +101,11 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 
+
+	if (!isBGMPlaying_) {
+		audio_->playAudio(BGMAudio_, BGMHandle_, true, 0.5f);
+		isBGMPlaying_ = true; // フラグを立てる
+	}
 	// プレイヤーのX座標を取得
 	Vector3 playerPosition = player_->GetWorldPosition();
 
@@ -172,14 +178,14 @@ void GameScene::Update() {
 		invertFlg = false;
 		mapChipField_->InvertMap();
 		InvertBlockPositionsWithCentering();  // 位置を調整しながら反転する
-		cameraController_->StartRotation();  // カメラの回転を開始
+		//cameraController_->StartRotation();  // カメラの回転を開始
 	}
 
 	if (player_->GetDoorCollicion() == true) {
 		if (Player::kGravityAccleration < 0) {
 			Player::kGravityAccleration = -Player::kGravityAccleration;
 		}
-		audio_->StopWave(BGMHandle_);
+		audio_->StopAudio(BGMAudio_);
 		finished_ = true;  // シーン完了フラグを設定
 	}
 }
@@ -340,22 +346,24 @@ void GameScene::ChangePhase() {
 
 	case Phase::kplay:
 
-		if (player_->GetIsDead_() == true) {
+		if (player_->GetIsDead_()) {
 			// 死亡演出フェーズに切り替え
 			phase_ = Phase::kDeath;
 			// 自キャラの座標を取得
 			const Vector3& deathParticlesPosition = player_->GetWorldPosition();
 			deathParticles_->Initialize(deathParticlesPosition, deathParticlesModel_, &viewProjection_);
+			audio_->StopAudio(BGMAudio_);
 		}
 		/*Clear();*/
-
+		
 		break;
 
 	case Phase::kDeath:
 		if (deathParticles_ && deathParticles_->GetIsFinished()) {
 			finished_ = true;
-			BGMHandle_ = 0;
+			audio_->StopAudio(BGMAudio_);
 		}
+
 		break;
 	}
 }
@@ -477,3 +485,6 @@ void GameScene::InvertBlockPositionsWithCentering() {
 	player_->SetWorldPosition(newPlayerPosition);
 }
 #pragma endregion
+
+
+

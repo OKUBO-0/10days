@@ -59,6 +59,7 @@ void ChengeScene() {
 			scene = Scene::kGame3;
 			// 旧シーンかいほう
 			delete gameScene2;
+			gameScene2 = nullptr;
 			titeleScene = nullptr;
 			// 新シーンの生成と初期化
 			gameScene3 = new GameScene3;
@@ -213,10 +214,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 
 	// 各種解放
-	delete gameScene3;
-	delete gameScene2;
-	delete gameScene;
-	delete titeleScene;
+	//delete gameScene3;
+	//delete gameScene2;
+	//delete gameScene;
+	//delete titeleScene;
 	// 3Dモデル解放
 	Model::StaticFinalize();
 	audio->Finalize();

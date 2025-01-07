@@ -90,7 +90,8 @@ private: // メンバ変数
 	//uint32_t soundDataHandle_ = 0;
 
 	// 音声再生ハンドル
-	uint32_t BGMHandle_ = 0;
+	int BGMHandle_ = 0;
+	int BGMAudio_ = -1;
 	uint32_t JumpSEHandle_ = 0;
 	uint32_t InvertSEHandle_ = 0;
 
@@ -130,4 +131,5 @@ private: // メンバ変数
 
 	bool finished_ = false;
 	bool invertFlg = true;
+	bool isBGMPlaying_ = false;
 };

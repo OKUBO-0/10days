@@ -46,7 +46,7 @@ void GameScene2::Initialize() {
 	JumpSEHandle_ = audio_->LoadWave("sound/jump.mp3");
 	InvertSEHandle_ = audio_->LoadWave("sound/invert.mp3");
 
-	audio_->PlayWave(BGMHandle_);
+	//audio_->playAudio(BGMAudio_,BGMHandle_,true,1.0f);
 
 	//// 音声再生
 	//audio_->PlayWave(soundDataHandle_);
@@ -103,6 +103,11 @@ void GameScene2::Update() {
 
 	// プレイヤーのX座標を取得
 	Vector3 playerPosition = player_->GetWorldPosition();
+
+	if (!isBGMPlaying_) {
+		audio_->playAudio(BGMAudio_, BGMHandle_, true, 0.3f);
+		isBGMPlaying_ = true; // フラグを立てる
+	}
 
 	ChangePhase();
 
@@ -343,14 +348,16 @@ void GameScene2::ChangePhase() {
 			// 自キャラの座標を取得
 			const Vector3& deathParticlesPosition = player_->GetWorldPosition();
 			deathParticles_->Initialize(deathParticlesPosition, deathParticlesModel_, &viewProjection_);
+			audio_->StopAudio(BGMAudio_);
 		}
+		
 		/*Clear();*/
 		break;
 
 	case Phase::kDeath:
 		if (deathParticles_ && deathParticles_->GetIsFinished()) {
 			finished_ = true;
-			audio_->StopWave(BGMHandle_);
+			audio_->StopAudio(BGMAudio_);
 		}
 		break;
 	}
