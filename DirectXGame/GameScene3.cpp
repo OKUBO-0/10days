@@ -103,10 +103,10 @@ void GameScene3::Update() {
 	if (invertCooldownTimer_ > 0.0f) {
 		invertCooldownTimer_ -= 1;
 	}
-	if (!isBGMPlaying_) {
-		audio_->playAudio(BGMAudio, BGMHandle_, true, 0.3f);
-		isBGMPlaying_ = true; // フラグを立てる
-	}
+	//if (!isBGMPlaying_) {
+	//	audio_->playAudio(BGMAudio, BGMHandle_, true, 0.3f);
+	//	isBGMPlaying_ = true; // フラグを立てる
+	//}
 
 	// プレイヤーのX座標を取得
 	Vector3 playerPosition = player_->GetWorldPosition();
@@ -174,14 +174,14 @@ void GameScene3::Update() {
 		audio_->PlayWave(JumpSEHandle_);
 	}
 
-	//反転処理
-	if (input_->TriggerKey(DIK_S)) {
-		audio_->PlayWave(InvertSEHandle_);
-		invertFlg = false;
-		mapChipField_->InvertMap();
-		InvertBlockPositionsWithCentering();  // 位置を調整しながら反転する
-		cameraController_->StartRotation();
-	}
+	////反転処理
+	//if (input_->TriggerKey(DIK_S)) {
+	//	audio_->PlayWave(InvertSEHandle_);
+	//	invertFlg = false;
+	//	mapChipField_->InvertMap();
+	//	InvertBlockPositionsWithCentering();  // 位置を調整しながら反転する
+	//	cameraController_->StartRotation();
+	//}
 
 	if (player_->GetDoorCollicion() == true) {
 		if (Player::kGravityAccleration < 0) {
@@ -328,9 +328,9 @@ void GameScene3::Draw() {
 	///
 	///反転してみようを描画
 	/// 
-	if (playerPosition.x >= 15.0f && playerPosition.x <= 19.0f && invertFlg) {
+	/*if (playerPosition.x >= 15.0f && playerPosition.x <= 19.0f && invertFlg) {
 		invertSprite_->Draw();
-	}
+	}*/
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

@@ -48,7 +48,7 @@ void TitleScene::Update() {
 #endif // DEBUG
 
 	// マウスクリック判定（前の例と同じ処理）
-	int clickArea1X = 410;
+	/*int clickArea1X = 410;
 	int clickArea1Y = 490;
 
 	int clickArea2X = 590;
@@ -58,28 +58,25 @@ void TitleScene::Update() {
 	int clickArea3Y = 490;
 
 	int clickAreaWidth = 100;
-	int clickAreaHeight = 100;
+	int clickAreaHeight = 100;*/
 
-	if (mousePos.x >= clickArea1X && mousePos.x <= clickArea1X + clickAreaWidth &&
-		mousePos.y >= clickArea1Y && mousePos.y <= clickArea1Y + clickAreaHeight) {
-		if (input_->IsTriggerMouse(0)) {
+	if (input_->TriggerKey(DIK_SPACE)) {
 			finished_ = true;
-		}
 	}
 
-	if (mousePos.x >= clickArea2X && mousePos.x <= clickArea2X + clickAreaWidth &&
-		mousePos.y >= clickArea2Y && mousePos.y <= clickArea2Y + clickAreaHeight) {
-		if (input_->IsTriggerMouse(0)) {
-			finished_ = true;
-		}
-	}
+	//if (mousePos.x >= clickArea2X && mousePos.x <= clickArea2X + clickAreaWidth &&
+	//	mousePos.y >= clickArea2Y && mousePos.y <= clickArea2Y + clickAreaHeight) {
+	//	if (input_->IsTriggerMouse(0)) {
+	//		finished_ = true;
+	//	}
+	//}
 
-	if (mousePos.x >= clickArea3X && mousePos.x <= clickArea3X + clickAreaWidth &&
-		mousePos.y >= clickArea3Y && mousePos.y <= clickArea3Y + clickAreaHeight) {
-		if (input_->IsTriggerMouse(0)) {
-			finished_ = true;
-		}
-	}
+	//if (mousePos.x >= clickArea3X && mousePos.x <= clickArea3X + clickAreaWidth &&
+	//	mousePos.y >= clickArea3Y && mousePos.y <= clickArea3Y + clickAreaHeight) {
+	//	if (input_->IsTriggerMouse(0)) {
+	//		finished_ = true;
+	//	}
+	//}
 
 	//if (Input::GetInstance()->PushKey(DIK_SPACE)) {
 
@@ -126,11 +123,11 @@ void TitleScene::Draw() {
 
 
 	model_->Draw(worldTransform_, viewProjection_);
-	stage1model_->Draw(worldTransform_, viewProjection_);
+	/*stage1model_->Draw(worldTransform_, viewProjection_);
 	stage2model_->Draw(worldTransform_, viewProjection_);
-	stage3model_->Draw(worldTransform_, viewProjection_);
+	stage3model_->Draw(worldTransform_, viewProjection_);*/
 
-	skydome_->Draw();
+	//skydome_->Draw();
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
